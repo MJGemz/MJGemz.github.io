@@ -1,0 +1,36 @@
+Artifact: CS-340-Client-Server-Development-2026
+Artifact Description
+
+The artifact I chose is my CS-340 AnimalShelter project. It is a Python program that connects to a MongoDB database and allows users to perform CRUD operations, which includes creating, reading, updating, and deleting records. The program was originally developed during my coursework to demonstrate how a Python application can communicate with a database and manage stored data. My project works as a simple backend system where data is stored in MongoDB and then retrieved or modified through Python functions. Looking back at it, it helped me understand how real applications are structured behind the scenes, especially how data is not just stored, but constantly accessed, updated, and managed depending on user input. It also gave me a better understanding of how client-server style systems work in practice.
+
+My Reason for Choosing the Artifact and the Improvements I Made
+
+I chose this artifact because it connects closely to my career goal in Health IT Support. In healthcare systems, especially things like electronic health records, data needs to be stored correctly, updated often, and retrieved quickly when needed. This project reflects those same ideas, even if it’s on a smaller scale. It shows that I understand how database systems work and how applications interact with stored data. When I went back to improve the project, my main focus was making the code cleaner, more organized, and more reliable. The original version worked, but a lot of the logic was grouped together in a way that made it harder to read and maintain. To fix that, I broke the code into smaller, more focused methods. For example, I separated out the database connection logic so it is handled in one clear place instead of being mixed into other parts of the program.
+
+I also added a validation method that checks the data before it is inserted or updated in MongoDB. This step is important because it prevents empty or incorrect data from being stored in the database. Before this change, the program would accept whatever was passed in without really checking it, which could lead to issues later on.
+
+An additional improvement I made was strengthening error handling. In the original version, errors were mostly handled with basic print statements, which didn’t give much detail. In the updated version, the program now gives clearer and more meaningful feedback when something goes wrong, especially when there are database connection issues or failed operations. This makes it easier to understand what is happening instead of just seeing a generic error.
+
+I was also able to expanded the functionality of the project by completing the full CRUD system. Originally, my program only supported create and read operations. So, I added update and delete methods so the system is fully functional as a complete database application. This makes it closer to something you would actually see in a real-world system instead of just a simple example.
+
+Course Outcomes and Skills Demonstrated
+
+All of the enhancements helped me work toward several course outcomes. One of the main things I believe I demonstrated was the ability to design and improve a working software solution. Instead of just focusing on whether the program runs, I focused on how it is structured and how it can be improved to make it more maintainable and complete. I also demonstrated my ability to use tools like Python and MongoDB together to build a working database application. This includes understanding how to connect to a database, perform queries, and manage data through code. Another skill I showed is modular programming. By breaking the code into smaller methods, I made the program easier to understand and work with. This also makes it easier to update in the future without breaking other parts of the system.
+
+I had also started thinking more about data reliability and safety. By adding input validation, I made sure that only proper data is stored in the database. This is important because in real systems, bad data can cause bigger issues later on.
+
+Reflection on the Enhancement Process
+
+While working on this project, I learned that writing code that works is only the first step. My original project did function correctly, but it was not organized in a way that would make it easy to maintain or expand later. Going back and improving it helped me understand how important structure is in real development. One challenge I ran into was making improvements without breaking the original functionality. Every change I made had to be tested to make sure it didn’t affect other parts of the program. That helped me understand how important testing and careful adjustments are when working with existing code. I also gained a better understanding of how Python interacts with MongoDB. I understood CRUD operations before, but now I have a clearer idea of how data flows between an application and a database and why things like validation and error handling matter in real systems.
+
+My Final Takeaway
+
+Honestly, this project shows a lot of growth for me as a developer. When I first built it, I was mostly focused on just getting it to work and finishing the assignment on time. I wasn’t really thinking about structure, readability, or how someone else would understand the code later on. Going back into it now made me realize that there is a big difference between code that “works” and code that is actually well organized and maintainable.
+
+After making the improvements, I can clearly see how much better the project is. I broke the code into smaller methods, added input validation, improved error handling, and completed the full CRUD functionality. These changes made the program feel more complete and closer to something that could actually be used in a real system. Even small adjustments like separating logic and cleaning up structure made it easier to follow and understand what each part of the program is doing.
+
+One thing that really stood out to me during this process was how much thought goes into improving existing code. It’s not just about adding features, it’s about understanding what is already there and improving it without breaking anything. That part took time because I had to be careful with every change and keep testing as I went. It made me realize how important patience and attention to detail are in software development.
+
+Going back to review the project, I feel more confident working with MongoDB and Python now. I understand better how data moves between the application and the database, and why things like validation and error handling matter so much in real systems. Before this, I mainly saw CRUD as basic operations, but now I see how important they are for keeping data accurate and reliable, especially in fields like Health IT.
+
+From here, I feel more comfortable going back into older code and improving it instead of leaving it as it is. I’m starting to think more about structure, readability, and how the code would look from another developer’s perspective. That shift in thinking is probably the biggest thing I’m taking away from this project.
