@@ -1,26 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Maurice Sapp | CS Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maurice Sapp | CS Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f9f9f8; color: #1a1a18; }
+    a { text-decoration: none; color: inherit; }
+
+    .hero { padding: 3rem 2rem 2rem; border-bottom: 1px solid #e5e4df; background: #fff; }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; background: #e6f1fb; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 500; color: #185fa5; margin-bottom: 1.25rem; }
+    .hero h1 { font-size: 24px; font-weight: 500; margin-bottom: 0.5rem; }
+    .hero p { font-size: 15px; color: #5c5c58; line-height: 1.7; max-width: 580px; }
+    .badge { display: inline-block; font-size: 12px; padding: 4px 12px; border-radius: 6px; background: #e6f1fb; color: #185fa5; margin-top: 1rem; }
+
+    .section { padding: 2rem; }
+    .section-title { font-size: 12px; font-weight: 500; color: #888780; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .card { background: #fff; border: 0.5px solid #e0ded8; border-radius: 12px; padding: 1.25rem; display: block; transition: border-color 0.15s; }
+    .card:hover { border-color: #b4b2a9; }
+    .card-icon { font-size: 20px; color: #888780; margin-bottom: 0.75rem; }
+    .card-title { font-size: 15px; font-weight: 500; margin-bottom: 0.3rem; }
+    .card-desc { font-size: 13px; color: #5c5c58; line-height: 1.5; }
+    .card-arrow { font-size: 13px; color: #888780; margin-top: 0.75rem; }
+
+    .sa-wrap { padding: 0 2rem 2rem; }
+    .self-assess { display: flex; align-items: center; justify-content: space-between; background: #f1efe8; border: 0.5px solid #e0ded8; border-radius: 12px; padding: 1.25rem 1.5rem; }
+    .self-assess:hover { border-color: #b4b2a9; }
+    .sa-left { display: flex; align-items: center; gap: 12px; }
+    .sa-icon { font-size: 20px; color: #888780; }
+    .sa-title { font-size: 15px; font-weight: 500; }
+    .sa-sub { font-size: 13px; color: #5c5c58; margin-top: 2px; }
+
+    footer { padding: 1.5rem 2rem; border-top: 1px solid #e5e4df; font-size: 13px; color: #888780; }
+  </style>
 </head>
 <body>
 
-    <h1>Maurice Sapp - Computer Science Portfolio</h1>
+  <div class="hero">
+    <div class="avatar">MS</div>
+    <h1>Maurice Sapp</h1>
+    <p>Computer Science student focused on Health IT Support, databases, and system design. This portfolio showcases my growth through software engineering, algorithms, and database development.</p>
+    <span class="badge"><i class="ti ti-school"></i> SNHU &mdash; B.S. Computer Science</span>
+  </div>
 
-    <p>
-        I am a Computer Science student focused on Health IT Support, databases,
-        and system design. This portfolio shows my growth through software engineering,
-        algorithms, and database development.
-    </p>
+  <div class="section">
+    <p class="section-title">Portfolio</p>
+    <div class="cards">
 
-    <h2>My Work</h2>
+      <a class="card" href="software-design/">
+        <div class="card-icon"><i class="ti ti-code"></i></div>
+        <div class="card-title">Software design &amp; engineering</div>
+        <div class="card-desc">Enhancement of the Animal Shelter application demonstrating software design and engineering principles.</div>
+        <div class="card-arrow">View artifact &rarr;</div>
+      </a>
 
-    <ul>
-        <li><a href="software-design/">Software Design & Engineering</a></li>
-        <li><a href="algorithms/">Algorithms & Data Structures</a></li>
-        <li><a href="databases/">Databases</a></li>
-        <li><a href="self-assessment.html">Professional Self-Assessment</a></li>
-    </ul>
+      <a class="card" href="algorithms/">
+        <div class="card-icon"><i class="ti ti-chart-dots"></i></div>
+        <div class="card-title">Algorithms &amp; data structures</div>
+        <div class="card-desc">Enhancement of the Course Planner demonstrating algorithmic efficiency and data structures.</div>
+        <div class="card-arrow">View artifact &rarr;</div>
+      </a>
+
+      <a class="card" href="databases/">
+        <div class="card-icon"><i class="ti ti-database"></i></div>
+        <div class="card-title">Databases</div>
+        <div class="card-desc">Enhancement of the Animal Shelter application demonstrating advanced database concepts.</div>
+        <div class="card-arrow">View artifact &rarr;</div>
+      </a>
+
+      <a class="card" href="Code-Review/">
+        <div class="card-icon"><i class="ti ti-video"></i></div>
+        <div class="card-title">Code review</div>
+        <div class="card-desc">Informal walkthrough of artifacts before enhancements, covering planned improvements.</div>
+        <div class="card-arrow">Watch video &rarr;</div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="sa-wrap">
+    <a class="self-assess" href="self-assessment.html">
+      <div class="sa-left">
+        <div class="sa-icon"><i class="ti ti-user-check"></i></div>
+        <div>
+          <div class="sa-title">Professional self-assessment</div>
+          <div class="sa-sub">Reflection on my journey through the CS program</div>
+        </div>
+      </div>
+      <i class="ti ti-arrow-right" style="color:#888780;"></i>
+    </a>
+  </div>
+
+  <footer>Maurice Sapp &mdash; CS 499 Capstone &mdash; SNHU</footer>
 
 </body>
 </html>
