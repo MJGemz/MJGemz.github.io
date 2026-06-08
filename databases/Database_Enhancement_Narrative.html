@@ -1,0 +1,27 @@
+Maurice Sapp
+Artifact Description
+The artifact I used is my AnimalShelter project from CS-340. It is a Python class that connects to a MongoDB database and manages animal records. I built it originally to learn how Python and MongoDB work together. The class handles storing, finding, updating, and deleting records through methods I wrote inside the AnimalShelter class. When the class starts up it calls connect_db which builds a connection URI using the username, password, host, and port and then tries to connect with a 5 second timeout so it does not hang forever if something goes wrong.
+Reason for Selection and Improvements
+I picked this project because it connects to my goal of working in Health IT Support. Healthcare runs on databases and knowing how to build and query them is a skill that carries over directly into that field. This project let me practice that on a smaller scale but with real concepts.
+For the enhancement I added several new methods on top of the basic CRUD that was already there. The first thing I added was read_by_field which lets you search the collection using any field dynamically instead of writing a new query every time. Before that the only read method just took whatever query you passed in or returned everything if you passed nothing.
+I also added read_selected_fields which uses MongoDB projection so queries only return the specific fields you ask for instead of the whole document. That matters when documents have a lot of fields and you only need a couple of them.
+Then I added read_sorted which returns results sorted by a field. It defaults to breed but you can pass in any field you want. I added count_records too which uses count_documents to return how many records match a query.
+One of the more important things I added was safe_object_id. Before this the code would just pass an ID straight into MongoDB without checking if it was actually a valid ObjectId. Now it runs ObjectId.is_valid first and only converts it if it passes. If it does not pass it returns None so the query does not crash.
+I also rewrote the update and delete methods. Instead of using update_many or delete_many I switched them to update_one_record and delete_one_record so only one document gets changed or removed at a time. Both of them also run through validate_data first before doing anything so bad data does not make it through.
+Course Outcomes and Progress
+This enhancement helped me get better at building database queries that are actually structured well and not just functional. Writing these methods made me think about things like what happens when bad data comes in, what happens when an ID is invalid, and how to return only what is needed instead of everything all at once.
+I met the outcomes I was going for in this section. I feel comfortable now working in MongoDB and thinking through how query design affects the way a system behaves. I want to keep learning about database security especially around protecting sensitive data since that is a big deal in healthcare environments.
+Reflection on the Enhancement Process
+The hardest part of this was adding new features without breaking what was already working. Every time I added a method I had to test it and make sure it worked with the existing code. The safe_object_id method took some extra thought because I had to figure out where in the flow to call it and what to do when it returns None.
+Projection was also new to me. I understood the concept but getting read_selected_fields to work right with different query and field combinations took some trial and error. Same with making sure count_records used count_documents instead of the older count method which is deprecated in newer versions of MongoDB.
+Going through all of this made me realize how much thought goes into a database layer even for something this size. Every method has to handle what happens when things go wrong and not just what happens when everything works.
+Final Takeaway
+Before this enhancement I thought CRUD was basically all you needed to know to work with a database. Building out this class showed me that is not really true. Things like projection, sorting, safe ID handling, and limiting operations to single records are what make a system actually reliable instead of just functional.
+It also made me more comfortable reading my own code and finding ways to improve it. Going back into a project and making it better is a different skill than just building something from scratch and this enhancement gave me practice doing that. For a career in Health IT that kind of thinking matters because you are often working with existing systems not building new ones.
+My References
+CompTIA. (2025). Health information technology career pathways. https://www.comptia.org
+U.S. Bureau of Labor Statistics. (2025). Computer and information technology occupations outlook. https://www.bls.gov/ooh/computer-and-information-technology/home.htm
+HealthIT.gov. (2025). Benefits of electronic health records. https://www.healthit.gov/topic/health-it-basics/benefits-electronic-health-records
+MongoDB Inc. (2025). MongoDB manual: Query and projection operators. https://www.mongodb.com/docs/manual
+GeeksforGeeks. (2025). MongoDB CRUD operations explained. https://www.geeksforgeeks.org/mongodb-crud-operations/
+
