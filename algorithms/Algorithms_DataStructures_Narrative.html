@@ -1,0 +1,45 @@
+Maurice Sapp
+
+Artifact Description
+
+The artifact I selected for this milestone is my CS300 Course Planner project written in C++. I originally created this project as part of my coursework to simulate a simple system that loads course data from a file and allows a user to view a full course list or search for a specific course and its prerequisites. The program uses a vector to store course objects and includes basic features like file input, sorting, looping, and searching through the dataset. When I first built it, my main focus was getting everything to work correctly and meet the assignment requirements rather than thinking too deeply about efficiency or structure.
+
+Looking back at it now, this project reflects my earlier understanding of how data structures like vectors work and how simple algorithms like sorting and searching are applied in real programs. It helped me understand how data moves through a system from a file into structured objects and then gets processed through user input.
+
+Why I Included This Artifact and The Improvements I Made
+
+I chose this artifact because it shows my growth in working with algorithms and data structures in a practical way. It also connects to real-world systems where data needs to be organized and retrieved efficiently, like course scheduling systems or database-driven applications. This project gave me a strong starting point, but I also saw areas where the design and performance could be improved.
+
+One of the main improvements I made was updating the search process. In the original version, the program used a linear search through a vector to find a course. While that works fine for smaller datasets, it becomes slower as the number of courses grows. To improve this, I added an unordered map so course lookups can happen much faster using key-based access instead of looping through every element. This change improves efficiency and makes the program more scalable.
+
+I also added logic to prevent duplicate courses from being loaded into the system. In the original version, there was no check to stop duplicates, which could lead to inaccurate data. Now, the program checks if a course already exists before adding it to the data structure. This makes the dataset more reliable and consistent.
+
+Another improvement I made was changing how sorting is handled. Originally, the course list was sorted every time it was printed. I moved the sorting step into the data loading function so it only happens once when the data is first loaded. This reduces unnecessary repeated work and improves performance.
+
+I also added better input validation. The program now checks for invalid menu options and ensures that users don’t try to search or print data before anything has been loaded. These changes make the program easier to use and reduce the chances of errors during execution.
+
+The Course Outcomes and Skills I Demonstrated
+
+Through these changes, I showed growth in my understanding of how algorithms and data structures work in real applications. One of the biggest skills I demonstrated was improving algorithm efficiency by replacing a linear search with a hash-based lookup using an unordered map. This helped reduce search time and showed that I can evaluate different approaches and choose more efficient ones.
+
+I also showed that I understand how to use multiple data structures together. In this project, I kept the vector for maintaining order while using a map for faster lookups. This helped me balance structure and performance instead of relying on just one approach.
+
+Another skill I demonstrated was refactoring existing code. Instead of rewriting the project from scratch, I improved specific parts of it while keeping the original structure intact. That required careful thinking to make sure changes didn’t break other parts of the program.
+
+I also improved my approach to defensive programming. I added checks to handle invalid input and missing data, which helps prevent crashes and makes the program more reliable in real use.
+
+My Reflection on the Enhancement Process
+
+Working on this enhancement helped me realize that writing code that works is just the starting point. The original version met the assignment requirements, but it wasn’t very efficient or well structured. Going back and improving it made me think more about how the program actually performs instead of just whether it runs.
+
+One challenge I ran into was making improvements without breaking the existing functionality. Every change had to be tested carefully to make sure nothing else stopped working. Another challenge was deciding how to improve the design without changing the purpose of the project too much.
+
+This process also helped me understand how much impact small design decisions can have on performance and readability. Something as simple as changing a search method or moving a sort operation made the program more efficient and easier to manage.
+
+My Final Takeaway
+
+This project reflects my growth and my ability to continue improving as a developer. When I first wrote it, I was mostly focused on getting the program to run and meeting the assignment requirements. Coming back to it later, I focused more on how clean, efficient, and maintainable the code was.
+
+Making these improvements helped me see the difference between code that simply works and code that is structured in a thoughtful way. Updating the search logic, improving data handling, and reducing unnecessary operations all helped make the program feel more complete and closer to something that could be used in a real application.
+
+This experience also helped me feel more confident working with data structures in C++ and thinking more critically about performance and design choices.
