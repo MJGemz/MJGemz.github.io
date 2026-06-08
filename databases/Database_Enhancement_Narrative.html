@@ -1,27 +1,124 @@
-Maurice Sapp
-Artifact Description
-The artifact I used is my AnimalShelter project from CS-340. It is a Python class that connects to a MongoDB database and manages animal records. I built it originally to learn how Python and MongoDB work together. The class handles storing, finding, updating, and deleting records through methods I wrote inside the AnimalShelter class. When the class starts up it calls connect_db which builds a connection URI using the username, password, host, and port and then tries to connect with a 5 second timeout so it does not hang forever if something goes wrong.
-Reason for Selection and Improvements
-I picked this project because it connects to my goal of working in Health IT Support. Healthcare runs on databases and knowing how to build and query them is a skill that carries over directly into that field. This project let me practice that on a smaller scale but with real concepts.
-For the enhancement I added several new methods on top of the basic CRUD that was already there. The first thing I added was read_by_field which lets you search the collection using any field dynamically instead of writing a new query every time. Before that the only read method just took whatever query you passed in or returned everything if you passed nothing.
-I also added read_selected_fields which uses MongoDB projection so queries only return the specific fields you ask for instead of the whole document. That matters when documents have a lot of fields and you only need a couple of them.
-Then I added read_sorted which returns results sorted by a field. It defaults to breed but you can pass in any field you want. I added count_records too which uses count_documents to return how many records match a query.
-One of the more important things I added was safe_object_id. Before this the code would just pass an ID straight into MongoDB without checking if it was actually a valid ObjectId. Now it runs ObjectId.is_valid first and only converts it if it passes. If it does not pass it returns None so the query does not crash.
-I also rewrote the update and delete methods. Instead of using update_many or delete_many I switched them to update_one_record and delete_one_record so only one document gets changed or removed at a time. Both of them also run through validate_data first before doing anything so bad data does not make it through.
-Course Outcomes and Progress
-This enhancement helped me get better at building database queries that are actually structured well and not just functional. Writing these methods made me think about things like what happens when bad data comes in, what happens when an ID is invalid, and how to return only what is needed instead of everything all at once.
-I met the outcomes I was going for in this section. I feel comfortable now working in MongoDB and thinking through how query design affects the way a system behaves. I want to keep learning about database security especially around protecting sensitive data since that is a big deal in healthcare environments.
-Reflection on the Enhancement Process
-The hardest part of this was adding new features without breaking what was already working. Every time I added a method I had to test it and make sure it worked with the existing code. The safe_object_id method took some extra thought because I had to figure out where in the flow to call it and what to do when it returns None.
-Projection was also new to me. I understood the concept but getting read_selected_fields to work right with different query and field combinations took some trial and error. Same with making sure count_records used count_documents instead of the older count method which is deprecated in newer versions of MongoDB.
-Going through all of this made me realize how much thought goes into a database layer even for something this size. Every method has to handle what happens when things go wrong and not just what happens when everything works.
-Final Takeaway
-Before this enhancement I thought CRUD was basically all you needed to know to work with a database. Building out this class showed me that is not really true. Things like projection, sorting, safe ID handling, and limiting operations to single records are what make a system actually reliable instead of just functional.
-It also made me more comfortable reading my own code and finding ways to improve it. Going back into a project and making it better is a different skill than just building something from scratch and this enhancement gave me practice doing that. For a career in Health IT that kind of thinking matters because you are often working with existing systems not building new ones.
-My References
-CompTIA. (2025). Health information technology career pathways. https://www.comptia.org
-U.S. Bureau of Labor Statistics. (2025). Computer and information technology occupations outlook. https://www.bls.gov/ooh/computer-and-information-technology/home.htm
-HealthIT.gov. (2025). Benefits of electronic health records. https://www.healthit.gov/topic/health-it-basics/benefits-electronic-health-records
-MongoDB Inc. (2025). MongoDB manual: Query and projection operators. https://www.mongodb.com/docs/manual
-GeeksforGeeks. (2025). MongoDB CRUD operations explained. https://www.geeksforgeeks.org/mongodb-crud-operations/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Database Enhancement Narrative — Maurice Sapp</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f9f9f8; color: #1a1a18; }
+    a { text-decoration: none; color: inherit; }
 
+    .topbar { padding: 1rem 2rem; border-bottom: 1px solid #e5e4df; background: #fff; display: flex; align-items: center; gap: 8px; font-size: 14px; color: #888780; }
+    .topbar a { color: #185fa5; }
+    .topbar a:hover { text-decoration: underline; }
+
+    .hero { padding: 2.5rem 2rem 2rem; background: #fff; border-bottom: 1px solid #e5e4df; }
+    .label { font-size: 12px; font-weight: 500; color: #888780; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    .hero h1 { font-size: 24px; font-weight: 500; margin-bottom: 0.5rem; }
+    .hero .sub { font-size: 15px; color: #5c5c58; }
+
+    .content { max-width: 720px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+    .section-block { margin-bottom: 2rem; }
+    .section-block h2 { font-size: 13px; font-weight: 500; color: #888780; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+    .section-block h2 i { font-size: 16px; }
+    .section-block p { font-size: 15px; color: #2c2c2a; line-height: 1.75; margin-bottom: 1rem; }
+    .section-block p:last-child { margin-bottom: 0; }
+
+    .divider { border: none; border-top: 1px solid #e5e4df; margin: 2rem 0; }
+
+    .references { background: #fff; border: 0.5px solid #e0ded8; border-radius: 12px; padding: 1.25rem 1.5rem; }
+    .references h2 { font-size: 13px; font-weight: 500; color: #888780; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+    .references ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .references li { font-size: 13px; color: #5c5c58; line-height: 1.6; }
+    .references a { color: #185fa5; }
+    .references a:hover { text-decoration: underline; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: #185fa5; margin-top: 2rem; }
+    .back-link:hover { text-decoration: underline; }
+
+    footer { padding: 1.5rem 2rem; border-top: 1px solid #e5e4df; font-size: 13px; color: #888780; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="../index.html"><i class="ti ti-home"></i> Home</a>
+    <span>/</span>
+    <a href="index.html">Databases</a>
+    <span>/</span>
+    <span>Narrative</span>
+  </div>
+
+  <div class="hero">
+    <p class="label">Enhancement Three — Narrative</p>
+    <h1>Database enhancement narrative</h1>
+    <p class="sub">Maurice Sapp &mdash; Artifact: CS-340 AnimalShelter</p>
+  </div>
+
+  <div class="content">
+
+    <div class="section-block">
+      <h2><i class="ti ti-file-description"></i> Artifact description</h2>
+      <p>The artifact I used is my AnimalShelter project from CS-340. It is a Python class that connects to a MongoDB database and manages animal records. I built it originally to learn how Python and MongoDB work together. The class handles storing, finding, updating, and deleting records through methods I wrote inside the AnimalShelter class. When the class starts up it calls connect_db, which builds a connection URI using the username, password, host, and port and then tries to connect with a 5 second timeout so it does not hang forever if something goes wrong.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section-block">
+      <h2><i class="ti ti-bulb"></i> Reason for selection &amp; improvements made</h2>
+      <p>I picked this project because it connects to my goal of working in Health IT Support. Healthcare runs on databases and knowing how to build and query them is a skill that carries over directly into that field. This project let me practice that on a smaller scale but with real concepts.</p>
+      <p>For the enhancement I added several new methods on top of the basic CRUD that was already there. The first thing I added was read_by_field, which lets you search the collection using any field dynamically instead of writing a new query every time.</p>
+      <p>I also added read_selected_fields, which uses MongoDB projection so queries only return the specific fields you ask for instead of the whole document. That matters when documents have a lot of fields and you only need a couple of them. Then I added read_sorted, which returns results sorted by a field, and count_records, which uses count_documents to return how many records match a query.</p>
+      <p>One of the more important things I added was safe_object_id. Before this, the code would just pass an ID straight into MongoDB without checking if it was actually a valid ObjectId. Now it runs ObjectId.is_valid first and only converts it if it passes. If it does not pass it returns None so the query does not crash.</p>
+      <p>I also rewrote the update and delete methods. Instead of using update_many or delete_many I switched them to update_one_record and delete_one_record so only one document gets changed or removed at a time. Both of them also run through validate_data first before doing anything so bad data does not make it through.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section-block">
+      <h2><i class="ti ti-certificate"></i> Course outcomes &amp; progress</h2>
+      <p>This enhancement helped me get better at building database queries that are actually structured well and not just functional. Writing these methods made me think about things like what happens when bad data comes in, what happens when an ID is invalid, and how to return only what is needed instead of everything all at once.</p>
+      <p>I met the outcomes I was going for in this section. I feel comfortable now working in MongoDB and thinking through how query design affects the way a system behaves. I want to keep learning about database security, especially around protecting sensitive data, since that is a big deal in healthcare environments.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section-block">
+      <h2><i class="ti ti-refresh"></i> Reflection on the enhancement process</h2>
+      <p>The hardest part of this was adding new features without breaking what was already working. Every time I added a method I had to test it and make sure it worked with the existing code. The safe_object_id method took some extra thought because I had to figure out where in the flow to call it and what to do when it returns None.</p>
+      <p>Projection was also new to me. I understood the concept but getting read_selected_fields to work right with different query and field combinations took some trial and error. Same with making sure count_records used count_documents instead of the older count method, which is deprecated in newer versions of MongoDB.</p>
+      <p>Going through all of this made me realize how much thought goes into a database layer even for something this size. Every method has to handle what happens when things go wrong and not just what happens when everything works.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="section-block">
+      <h2><i class="ti ti-arrow-up-right"></i> Final takeaway</h2>
+      <p>Before this enhancement I thought CRUD was basically all you needed to know to work with a database. Building out this class showed me that is not really true. Things like projection, sorting, safe ID handling, and limiting operations to single records are what make a system actually reliable instead of just functional.</p>
+      <p>It also made me more comfortable reading my own code and finding ways to improve it. Going back into a project and making it better is a different skill than just building something from scratch, and this enhancement gave me practice doing that. For a career in Health IT that kind of thinking matters because you are often working with existing systems, not building new ones.</p>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="references">
+      <h2><i class="ti ti-books"></i> References</h2>
+      <ul>
+        <li>CompTIA. (2025). Health information technology career pathways. <a href="https://www.comptia.org" target="_blank">https://www.comptia.org</a></li>
+        <li>U.S. Bureau of Labor Statistics. (2025). Computer and information technology occupations outlook. <a href="https://www.bls.gov/ooh/computer-and-information-technology/home.htm" target="_blank">https://www.bls.gov/ooh/computer-and-information-technology/home.htm</a></li>
+        <li>HealthIT.gov. (2025). Benefits of electronic health records. <a href="https://www.healthit.gov/topic/health-it-basics/benefits-electronic-health-records" target="_blank">https://www.healthit.gov/topic/health-it-basics/benefits-electronic-health-records</a></li>
+        <li>MongoDB Inc. (2025). MongoDB manual: Query and projection operators. <a href="https://www.mongodb.com/docs/manual" target="_blank">https://www.mongodb.com/docs/manual</a></li>
+        <li>GeeksforGeeks. (2025). MongoDB CRUD operations explained. <a href="https://www.geeksforgeeks.org/mongodb-crud-operations/" target="_blank">https://www.geeksforgeeks.org/mongodb-crud-operations/</a></li>
+      </ul>
+    </div>
+
+    <a class="back-link" href="index.html"><i class="ti ti-arrow-left"></i> Back to databases</a>
+
+  </div>
+
+  <footer>Maurice Sapp &mdash; CS 499 Capstone &mdash; SNHU</footer>
+
+</body>
+</html>
