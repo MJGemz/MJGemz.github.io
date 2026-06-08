@@ -1,12 +1,111 @@
-<h1>Databases</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Databases — Maurice Sapp</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f9f9f8; color: #1a1a18; }
+    a { text-decoration: none; color: inherit; }
 
-<p>MongoDB AnimalShelter application with CRUD operations, validation, and improved database handling.</p>
+    .topbar { padding: 1rem 2rem; border-bottom: 1px solid #e5e4df; background: #fff; display: flex; align-items: center; gap: 8px; font-size: 14px; color: #888780; }
+    .topbar a { color: #185fa5; }
+    .topbar a:hover { text-decoration: underline; }
 
-<h2>Files</h2>
+    .hero { padding: 2.5rem 2rem 2rem; background: #fff; border-bottom: 1px solid #e5e4df; }
+    .label { font-size: 12px; font-weight: 500; color: #888780; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    .hero h1 { font-size: 24px; font-weight: 500; margin-bottom: 0.5rem; }
+    .hero p { font-size: 15px; color: #5c5c58; line-height: 1.7; max-width: 580px; }
 
-<ul>
-    <li>Original Code</li>
-    <li>Enhanced Code (Patch 2)</li>
-</ul>
+    .content { max-width: 720px; margin: 0 auto; padding: 2.5rem 2rem; }
 
-<a href="../index.html">Back Home</a>
+    .section-title { font-size: 12px; font-weight: 500; color: #888780; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
+
+    .file-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 2.5rem; }
+    .file-card { display: flex; align-items: center; justify-content: space-between; background: #fff; border: 0.5px solid #e0ded8; border-radius: 10px; padding: 1rem 1.25rem; transition: border-color 0.15s; }
+    .file-card:hover { border-color: #b4b2a9; }
+    .file-left { display: flex; align-items: center; gap: 12px; }
+    .file-icon { font-size: 20px; color: #888780; }
+    .file-name { font-size: 15px; font-weight: 500; color: #1a1a18; }
+    .file-desc { font-size: 13px; color: #5c5c58; margin-top: 2px; }
+    .file-link { font-size: 13px; color: #185fa5; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+    .file-link:hover { text-decoration: underline; }
+
+    .narrative-card { background: #f1efe8; border: 0.5px solid #e0ded8; border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+    .narrative-card:hover { border-color: #b4b2a9; }
+    .nar-left { display: flex; align-items: center; gap: 12px; }
+    .nar-icon { font-size: 20px; color: #888780; }
+    .nar-title { font-size: 15px; font-weight: 500; }
+    .nar-sub { font-size: 13px; color: #5c5c58; margin-top: 2px; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: #185fa5; }
+    .back-link:hover { text-decoration: underline; }
+
+    footer { padding: 1.5rem 2rem; border-top: 1px solid #e5e4df; font-size: 13px; color: #888780; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="../index.html"><i class="ti ti-home"></i> Home</a>
+    <span>/</span>
+    <span>Databases</span>
+  </div>
+
+  <div class="hero">
+    <p class="label">Enhancement Three</p>
+    <h1>Databases</h1>
+    <p>MongoDB AnimalShelter application with CRUD operations, validation, and improved database handling.</p>
+  </div>
+
+  <div class="content">
+
+    <p class="section-title">Artifact files</p>
+    <div class="file-list">
+
+      <div class="file-card">
+        <div class="file-left">
+          <div class="file-icon"><i class="ti ti-file-code"></i></div>
+          <div>
+            <div class="file-name">Original_AnimalShelter.py</div>
+            <div class="file-desc">Original artifact before enhancements</div>
+          </div>
+        </div>
+        <a class="file-link" href="Original_AnimalShelter.py">View file <i class="ti ti-external-link"></i></a>
+      </div>
+
+      <div class="file-card">
+        <div class="file-left">
+          <div class="file-icon"><i class="ti ti-file-code"></i></div>
+          <div>
+            <div class="file-name">Enhanced_AnimalShelter_Patch2.py</div>
+            <div class="file-desc">Enhanced artifact with improved MongoDB operations and validation</div>
+          </div>
+        </div>
+        <a class="file-link" href="Enhanced_AnimalShelter_Patch2.py">View file <i class="ti ti-external-link"></i></a>
+      </div>
+
+    </div>
+
+    <p class="section-title">Narrative</p>
+    <a class="narrative-card" href="Database_Enhancement_Narrative.html">
+      <div class="nar-left">
+        <div class="nar-icon"><i class="ti ti-file-text"></i></div>
+        <div>
+          <div class="nar-title">Database enhancement narrative</div>
+          <div class="nar-sub">Reflection on the enhancement process and course outcomes</div>
+        </div>
+      </div>
+      <i class="ti ti-arrow-right" style="color:#888780;"></i>
+    </a>
+
+    <a class="back-link" href="../index.html"><i class="ti ti-arrow-left"></i> Back to home</a>
+
+  </div>
+
+  <footer>Maurice Sapp &mdash; CS 499 Capstone &mdash; SNHU</footer>
+
+</body>
+</html>
